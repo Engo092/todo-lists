@@ -1,0 +1,78 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.header {
+    background-color: rgb(1, 128, 179);
+    position: fixed;
+    color: white;
+    font-size: max(5vh, 36px);
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+}
+
+.mainIcon {
+    content: url('./listIcon.svg');
+    width: 50px;
+    height: 50px;
+    margin-left: 45px;
+    margin-right: 15px;
+}
+
+.nav {
+    overflow-y: auto;
+    z-index: auto;
+    background-color: rgb(240, 240, 240);
+    position: fixed;
+    height: 100%;
+    width: 15vw;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.navBtn {
+    font-size: max(2.5vh, 16px);
+    padding: 5px;
+    border-style: none;
+    background-color: rgb(240, 240, 240);
+    width: max(10vw, 80%);
+    display: inline;
+    border-radius: 5px;
+    text-align: left;
+
+    /* Got these from https://www.w3schools.com/cssref/css3_pr_text-overflow.asp */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.navBtn:hover {
+    background-color: rgb(221, 221, 221);
+}
+
+.inbox {
+    margin-top: max(12vh, 80px);
+}
+
+.projects {
+    font-size: max(3vh, 24px);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+span {
+    margin: 10px;
+}
+
+i {
+    margin-right: 5%;
+}
