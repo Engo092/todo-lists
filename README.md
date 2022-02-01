@@ -1,5 +1,7 @@
-# Todo-List (Visual Demo)
+# Todo-List (W.I.P)
 
 This is yet another project from The Odin Project curriculum, being the creation of a todo-list website. It is meant to be a practice project for all of the Javascript fundamentals that i've learned recently, to help in more complicated projects in the future.
 
-This is an extreme W.I.P and has no functions at all, being only a visual demonstration of what will be the final product. In other words no Javascript has been done yet, only most of the HTML and CSS. I do think it looks quite decent and that is why i am pushing it as the first commit. You can also make out what will be some of the final features.
+At its current state this project is still a Work in Progress, though you can add and remove projects as you wish, you cannot add any todos to them and the button for adding a task is currently only a visual aspect. If you want you can play around with it though, as other than the actual todos everything should work just fine.
+
+While making this project i first focused mostly on the visual aspect of it, and then moved on to the Javascript portion, first making very simple visual changes as you clicked at buttons and then working on projects, i will finish it by adding todos as well as using localstorage so that everything is saved in the browser, this project should be finished soon enough.
