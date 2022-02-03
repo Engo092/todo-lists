@@ -1,6 +1,6 @@
 export default createProject;
 import visualDisplay from "./visual";
-import projects, { idNumerator } from ".";
+import projects, { projectIdNumerator } from ".";
 import factories from "./factories";
 
 function createProject(title) {
@@ -15,8 +15,8 @@ function createProject(title) {
 };
 
 function addProjectToArray(title) {
-    let newProject = factories.project(title, idNumerator.num);
+    let newProject = factories.project(title, projectIdNumerator.num);
     projects.push(newProject);
-    idNumerator.num++;
+    projectIdNumerator.num++;
     return newProject;
-}
+};

@@ -50,7 +50,7 @@ const newProject = (() => {
             if (name.value.length > 50) {
                 alert("Please enter a title smaller than or equal to 50 characters in length");
             }
-             else if (!name.value == "") {
+             else if (!name.value.replace(/\s+/g, '') == "") {
                 createProject(name.value);
                 _reverseDisplay();
             };

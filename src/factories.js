@@ -1,6 +1,6 @@
 const factories = (() => {
-    const todo = (project, title, description, dueDate, priority) => {
-        return { project, title, description, dueDate, priority };
+    const todo = (project, title, description, dueDate, priority, id) => {
+        return { project, title, description, dueDate, priority, id };
     }
 
     const project = (title, id) => {

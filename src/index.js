@@ -2,9 +2,13 @@ import './style.css';
 import visualDisplay from './visual';
 
 const projects = projectArray();
-let idNumerator = {
+const todos = todoArray();
+let projectIdNumerator = {
     num: 0,
 };
+let todoIdNumerator = {
+    num: 0,
+}
 visualDisplay.initialInboxDisplay();
 visualDisplay.buttonListener();
 
@@ -14,5 +18,12 @@ function projectArray() {
     return projectArray;
 }
 
+function todoArray() {
+    const todoArray = [];
+    return todoArray;
+}
+
 export default projects;
-export { idNumerator };
+export { projectIdNumerator };
+export { todos }
+export { todoIdNumerator }

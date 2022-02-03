@@ -2,6 +2,7 @@ import loadContent from "./loadContent";
 import newProject from "./newProject";
 import projects from ".";
 import removeProject from "./rmProject";
+import todoDisplay from "./todoDisplay";
 
 const visualDisplay = (() => {
 
@@ -14,10 +15,8 @@ const visualDisplay = (() => {
         const title = _getTitle(div);
         const contentTitle = document.querySelector('.contentTitle');
         contentTitle.innerHTML = title;
-        const projectContent = document.createElement('div');
-        projectContent.classList.add('projectContent');
-        projectContent.appendChild(loadContent());
-        document.querySelector('.mainContent').appendChild(projectContent);
+        document.querySelector('.mainContent').appendChild(loadContent(title));
+        todoDisplay.todoListener();
     }
 
     const _updateDisplay = (div) => {
@@ -28,10 +27,6 @@ const visualDisplay = (() => {
             };
         };
         div.classList.add('selected');
-        
-        if (div.classList.contains('today') || div.classList.contains('thisWeek')) {
-            _removeAddTask();
-        }
 
         if (div.classList.contains("project") && !document.querySelector('.deleteBtn')) {
             _addDelBtn();
@@ -79,21 +74,15 @@ const visualDisplay = (() => {
         document.querySelector('.deleteBtn').remove();
     };
 
-    const _loadProjectIntoPage = () => {
-        //
-    };
-
 
 
     const initialInboxDisplay = () => {
         const inbox = document.querySelector('.inbox');
         const contentTitle = document.querySelector('.contentTitle');
-        const content = document.createElement('div');
-        content.classList.add('projectContent');
-        content.appendChild(loadContent());
         inbox.classList.add('selected');
         contentTitle.innerHTML = "Inbox";
-        document.querySelector('.mainContent').appendChild(content);
+        document.querySelector('.mainContent').appendChild(loadContent('Inbox'));
+        todoDisplay.todoListener();
     };
 
     const buttonListener = () => {

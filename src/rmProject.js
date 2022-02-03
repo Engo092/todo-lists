@@ -7,6 +7,6 @@ function removeProject() {
         if (projects[i].title == projectTitle.innerHTML) {
             document.getElementById(`${projects[i].id}`).remove();
             projects.splice(i, 1);
-        }
-    }
+        };
+    };
 };
