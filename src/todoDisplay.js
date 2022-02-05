@@ -1,7 +1,8 @@
-import { format } from 'date-fns';
+import { format, startOfWeek, endOfWeek } from 'date-fns';
 import { todos, todoIdNumerator } from '.';
 import factories from './factories';
 import loadContent from './loadContent';
+import todoEditor from './todoEditor';
 
 const todoDisplay = (() => {
 
@@ -16,6 +17,17 @@ const todoDisplay = (() => {
         const todoDate = document.createElement('input');
         todoDate.type = 'date';
         todoDate.classList.add('todoDate');
+        if (getTodoProject() == "Today") {
+            todoDate.value = new Date().toISOString().split('T')[0];
+            todoDate.disabled = true;
+        }
+        else if (getTodoProject() == "This Week") {
+            const today = new Date();
+            const start = format(startOfWeek(today, {weekStartsOn: 1}), 'yyyy-MM-dd');
+            const end = format(endOfWeek(today, {weekStartsOn: 1}), 'yyyy-MM-dd');
+            todoDate.min = start;
+            todoDate.max = end;
+        }
         nameAndDate.appendChild(todoName);
         nameAndDate.appendChild(todoDate);
 
@@ -75,20 +87,14 @@ const todoDisplay = (() => {
         }
     };
 
-
-    const _removeForm = () => {
-        document.querySelector('.todoForm').remove();
-        document.querySelector('.addNewTodo').classList.remove('hidden');
-    };
-
     const _cancelBtn = () => {
         document.querySelector('.cancelTodoBtn').addEventListener('click', function() {
-            _removeForm();
+            reloadContent();
         });
     };
 
     const _inputDealer = () => {
-        _priorities();
+        priorities();
         document.querySelector('.addTodoBtn').addEventListener('click', function() {
             if (!document.querySelector('.todoNameInput').value.replace(/\s+/g, '') == '') {
                 const project = getTodoProject();
@@ -101,29 +107,15 @@ const todoDisplay = (() => {
                 if (date == '') {
                     date = null;
                 };
-                const priority = _getPriority();
+                const priority = getPriority();
                 
                 const newTodo = factories.todo(project, title, desc, date, priority, todoIdNumerator.num);
                 todos.push(newTodo);
                 todoIdNumerator.num++;
-                _removeTodoForm();
-                _reloadContent();
-            }
-        });
-    };
-
-    const _priorities = () => {
-        document.querySelector('.lowPrio').addEventListener('click', function() {
-            _clearPriorities();
-            document.querySelector('.lowPrio').classList.add('selected');
-        });
-        document.querySelector('.medPrio').addEventListener('click', function() {
-            _clearPriorities();
-            document.querySelector('.medPrio').classList.add('selected');
-        });
-        document.querySelector('.highPrio').addEventListener('click', function() {
-            _clearPriorities();
-            document.querySelector('.highPrio').classList.add('selected');
+                localStorage.setItem('todos', JSON.stringify(todos));
+                localStorage.setItem('todoIdNumerator', JSON.stringify(todoIdNumerator));
+                reloadContent();
+            };
         });
     };
 
@@ -139,53 +131,44 @@ const todoDisplay = (() => {
         };
     };
 
-    const _getPriority = () => {
-        if (document.querySelector('.lowPrio').classList.contains('selected')) {
-            return 'low';
-        };
-        if (document.querySelector('.medPrio').classList.contains('selected')) {
-            return 'medium';
-        };
-        if (document.querySelector('.highPrio').classList.contains('selected')) {
-            return 'high';
-        };
-        return null;
-    };
-
-    const _removeTodoForm = () => {
-        document.querySelector('.todoForm').remove();
-        document.querySelector('.addNewTodo').classList.remove('hidden');
-    };
-
-    const _reloadContent = () => {
-        document.querySelector('.projectContent').remove();
-        document.querySelector('.mainContent').appendChild(loadContent());
-        todoListener();
-    };
-
     const _removeTodo = (removedTodo) => {
         for (let i = 0; i < todos.length; i++) {
             if (todos[i].id == removedTodo.id) {
                 todos.splice(i, 1);
             };
         };
-        _reloadContent();
+        localStorage.setItem('todos', JSON.stringify(todos));
+        reloadContent();
     };
 
 
     
     const todoListener = () => {
-        document.querySelector('.addNewTodo').addEventListener('click', function(){ 
-            document.querySelector('.addNewTodo').classList.add('hidden');
-            _displayForm();
-            _cancelBtn();
-            _inputDealer();
+        let editing = false;
+        document.querySelector('.addNewTodo').addEventListener('click', function(){
+            if (editing == false) {
+                document.querySelector('.addNewTodo').remove();
+                _displayForm();
+                _cancelBtn();
+                _inputDealer();
+            };
+            editing = true;
         });
 
         const removers = document.querySelectorAll('.removeTodo, .checkBtn');
         for (let i = 0; i < removers.length; i++) {
             removers[i].addEventListener('click', function() {
                 _removeTodo(removers[i]);
+            });
+        };
+
+        const pageTodos = document.querySelectorAll('.todo');
+        for (let i = 0; i < pageTodos.length; i++){
+            pageTodos[i].addEventListener('click', function() {
+                if (editing == false) {
+                    todoEditor.displayEditor(pageTodos[i]);
+                };
+                editing = true;
             });
         };
     };
@@ -254,10 +237,47 @@ const todoDisplay = (() => {
         };
     };
 
+    const priorities = () => {
+        document.querySelector('.lowPrio').addEventListener('click', function() {
+            _clearPriorities();
+            document.querySelector('.lowPrio').classList.add('selected');
+        });
+        document.querySelector('.medPrio').addEventListener('click', function() {
+            _clearPriorities();
+            document.querySelector('.medPrio').classList.add('selected');
+        });
+        document.querySelector('.highPrio').addEventListener('click', function() {
+            _clearPriorities();
+            document.querySelector('.highPrio').classList.add('selected');
+        });
+    };
+
+    const reloadContent = () => {
+        document.querySelector('.projectContent').remove();
+        document.querySelector('.mainContent').appendChild(loadContent());
+        todoListener();
+    };
+
+    const getPriority = () => {
+        if (document.querySelector('.lowPrio').classList.contains('selected')) {
+            return 'low';
+        };
+        if (document.querySelector('.medPrio').classList.contains('selected')) {
+            return 'medium';
+        };
+        if (document.querySelector('.highPrio').classList.contains('selected')) {
+            return 'high';
+        };
+        return null;
+    };
+
     return {
         todoListener,
         todoVisual,
         getTodoProject,
+        priorities,
+        reloadContent,
+        getPriority,
     };
 })();
 

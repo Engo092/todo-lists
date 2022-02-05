@@ -191,7 +191,7 @@ i {
     transition: 0.2s;
 }
 
-.todoForm {
+.todoForm, .todoEditor {
     width: 60%;
     margin-top: 10px;
 }
@@ -227,7 +227,7 @@ textarea {
     margin-top: 5px;
 }
 
-.newTodoBtns {
+.newTodoBtns, .todoEditorBtns {
     margin-top: 15px;
     display: flex;
     min-width: 450px;
@@ -259,24 +259,24 @@ textarea {
     background-color: rgb(218, 218, 218);
 }
 
-.addTodoBtn {
+.addTodoBtn, .editTodoBtn {
     margin-right: 10px;
     background-color: green;
 }
 
-.addTodoBtn:hover {
+.addTodoBtn:hover, .editTodoBtn:hover {
     background-color: rgb(0, 180, 0);
 }
 
-.cancelTodoBtn {
+.cancelTodoBtn, .cancelEditBtn {
     background-color: red;
 }
 
-.cancelTodoBtn:hover {
+.cancelTodoBtn:hover, .cancelEditBtn:hover {
     background-color: rgb(200, 0, 0);
 }
 
-.addTodoBtn, .cancelTodoBtn {
+.addTodoBtn, .cancelTodoBtn, .editTodoBtn, .cancelEditBtn {
     padding: 5px;
     font-size: 18px;
     color: white;
@@ -340,12 +340,14 @@ textarea {
     display: block;
 }
 
-.removeTodo:hover, .todoDueDate:hover {
+.removeTodo:hover {
     background-color: rgb(204, 204, 204);
 }
 
 .todoDueDate {
     margin-right: 40px;
+    border-style: none;
+    font-size: max(2vh, 18px);
 }
 
 .todoName {

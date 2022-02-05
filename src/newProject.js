@@ -37,7 +37,6 @@ const newProject = (() => {
 
 
     const mainChange = () => {
-
         _hideButton();
         _createDisplay();
 

@@ -9,7 +9,7 @@ const visualDisplay = (() => {
     const _clearDisplay = () => {
         const oldContent = document.querySelector('.projectContent');
         oldContent.remove();
-    }
+    };
 
     const _displayContent = (div) => {
         const title = _getTitle(div);
@@ -17,7 +17,7 @@ const visualDisplay = (() => {
         contentTitle.innerHTML = title;
         document.querySelector('.mainContent').appendChild(loadContent(title));
         todoDisplay.todoListener();
-    }
+    };
 
     const _updateDisplay = (div) => {
         const buttons = document.querySelectorAll('.navBtn');
@@ -52,8 +52,8 @@ const visualDisplay = (() => {
             for (let i = 0; i < projects.length; i++) {
                 if (projects[i].id == div.id) {
                     return projects[i].title;
-                }
-            }
+                };
+            };
         };
         return "Error";
     };

@@ -18,5 +18,7 @@ function addProjectToArray(title) {
     let newProject = factories.project(title, projectIdNumerator.num);
     projects.push(newProject);
     projectIdNumerator.num++;
+    localStorage.setItem('projects', JSON.stringify(projects));
+    localStorage.setItem('projectIdNumerator', JSON.stringify(projectIdNumerator));
     return newProject;
 };
